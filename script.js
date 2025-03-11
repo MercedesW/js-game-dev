@@ -8,6 +8,11 @@ window.addEventListener('load', function() {
     class Player {
         constructor(game) {
             this.game = game;
+            // posición del jugador
+            this.collisionX = this.game.width * 0.5;
+            this.collisionY = this.game.height * 0.5;
+            // tamaño de la imagen del jugador
+            this.collisionRadius = 30;
         }
 
         draw(context) {
@@ -16,7 +21,7 @@ window.addEventListener('load', function() {
             /* https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc */
             // arc(x, y, radius, startAngle(en rad), endAngle(en rad), counterclockwise)
             // Math.PI * 2 hace un círculo entero
-            context.arc(400, 500, 50, 0, Math.PI * 2);
+            context.arc(this.collisionX, this.collisionY, this.collisionRadius, 0, Math.PI * 2);
             context.fill();
         }
     }
