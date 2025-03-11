@@ -5,6 +5,13 @@ window.addEventListener('load', function() {
     canvas.width = 1280;
     canvas.height = 720;
 
+    /* agregar estos estilos acá en vez de hacerlo dentro del método draw, hace que
+    tenga mejor performance. Sino se estaría agregando estas transformaciones
+    todas las veces, acá se hace sólo una vez */ 
+    ctx.fillStyle = 'white';
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'white';
+
     class Player {
         constructor(game) {
             this.game = game;
@@ -22,7 +29,14 @@ window.addEventListener('load', function() {
             // arc(x, y, radius, startAngle(en rad), endAngle(en rad), counterclockwise)
             // Math.PI * 2 hace un círculo entero
             context.arc(this.collisionX, this.collisionY, this.collisionRadius, 0, Math.PI * 2);
+            /* con globalAlpha cambiamos la transparencia, pero se aplica a todo.
+            Para aplicarlo sólo en el fill(relleno), encerramos el globalAlpha y el fill
+            dentro de save y restore */
+            context.save()
+            context.globalAlpha = 0.5;
             context.fill();
+            context.restore();
+            context.stroke();// para que se muestre sólo el borde
         }
     }
 
